@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Visitors</title>
+
+    <style>
+        body {
+            background: #f8f7ee;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 95%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 18px 12px;
+            line-height: 1.6;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #17a2b8;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #c0e3e9;
+        }
+
+        /* ADD VISITOR BUTTON */
+        .btn-add {
+            display: inline-block;
+            margin-bottom: 15px;
+            background: #029f3e;
+            color: white;
+            padding: 10px 14px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .btn-add:hover {
+            background: #07bf4d;
+        }
+
+        /* EDIT BUTTON */
+        .btn-edit {
+            background-color: #fb5216;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-edit:hover {
+            background-color: #fd8a62;
+        }
+
+        /* DELETE BUTTON */
+        .btn-delete {
+            background-color: #f00404;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background-color: #fd5454;
+        }
+
+        /* STACK EDIT & DELETE */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Visitor List</h2>
+
+    <!-- ADD VISITOR -->
+    <a href="{% url 'add_visitor' %}" class="btn-add">+ Add Visitor</a>
+
+    <table>
+        <tr>
+            <th>S.No</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Purpose</th>
+            <th>Person To Meet</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Action</th>
+        </tr>
+
+        {% for visitor in visitors %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ visitor.name }}</td>
+            <td>{{ visitor.phone }}</td>
+            <td>{{ visitor.purpose }}</td>
+            <td>{{ visitor.person_to_meet }}</td>
+            <td>{{ visitor.date }}</td>
+            <td>{{ visitor.time }}</td>
+
+            <!-- EDIT + DELETE -->
+            <td class="action-buttons">
+                <a href="{% url 'edit_visitor' visitor.id %}" class="btn-edit">Edit</a>
+
+                <form action="{% url 'delete_visitor' visitor.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8">No visitors found</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+</body>
+</html>

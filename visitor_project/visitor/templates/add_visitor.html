@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Visitor</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f7ee;
+        }
+
+        .container {
+            width: 400px;
+            margin: 80px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        textarea {
+            resize: none;
+            height: 70px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #9208fd;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #af4cfc;
+        }
+
+        .btn-view {
+            display: block;
+            width: 100%;
+            margin-top: 12px;
+            padding: 10px;
+            background-color: #f601dc;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-view:hover {
+            background-color: #fd3be8;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Add Visitor</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Name</label>
+        <textarea name="name" required></textarea>
+
+        <label>Phone</label>
+        <input type="tel" name="phone" required />
+
+        <label>Purpose</label>
+        <textarea name="purpose" required></textarea>
+
+        <label>Person to Meet</label>
+        <textarea name="person_to_meet" required></textarea>
+
+        <button type="submit" class="btn-add">Add Visitor</button>
+
+    </form>
+
+    <a href="{% url 'visitor_list' %}" class="btn-view">
+        View Visitors
+    </a>
+
+</div>
+
+</body>
+</html>
